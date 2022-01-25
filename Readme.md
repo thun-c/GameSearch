@@ -1,7 +1,7 @@
 # GameSearch
 
 ## 概要
-ゲーム木探索のサンプルコード。  
+[世界四連覇AIエンジニアがゼロから教えるゲーム木探索入門](https://qiita.com/thun-c/items/058743a25c37c87b8aa4)のサンプルコード。  
 それぞれのcppファイルで独立に実行ファイルをコンパイルして動作する。  
 main関数内でplayGameを呼ぶと、引数に与えたAIでゲームを開始し、ゲーム状況を標準出力する。  
 OnePlayerGameのmain関数内でtestAiScoreを呼ぶと、引数に与えたAIでゲームを複数回行い、平均スコアを表示する。  
