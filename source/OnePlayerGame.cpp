@@ -305,7 +305,7 @@ Action chokudaiSearchAction(const State& state, const int beam_width, const int 
 				if (now_beam.empty())break;
 				State now_state = now_beam.top();
 				if (now_state.isDone()) {
-					continue;
+					break;
 				}
 				now_beam.pop();
 				auto legal_actions = now_state.legalActions();
@@ -345,7 +345,7 @@ Action chokudaiSearchActionWithTimeThreshold(const State& state, const int beam_
 				if (now_beam.empty())break;
 				State now_state = now_beam.top();
 				if (now_state.isDone()) {
-					continue;
+					break;
 				}
 				now_beam.pop();
 				auto legal_actions = now_state.legalActions();
