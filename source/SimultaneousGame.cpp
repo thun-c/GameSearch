@@ -348,46 +348,45 @@ namespace montecarlo {
 			int best_is[] = { -1,-1 };
 
 
-			for (int player_id = 0; player_id < 2; player_id++) {
-				double best_value = -INF;
-				for (int i = 0; i < this->child_nodeses.size(); i++) {
-					const auto& childe_nodes = this->child_nodeses[i];
-					double w = 0;
-					double n = 0;
-					for (int j = 0; j < childe_nodes.size(); j++) {
-						const auto& child_node = childe_nodes[j];
-						w += child_node.w_;
-						n += child_node.n_;
-					}
-					double wr = w / n;
-					double bias = std::sqrt(2. * std::log(t) / n);
-
-					double ucb1_value = w / n + (double)C * std::sqrt(2. * std::log(t) / n);
-					if (ucb1_value > best_value) {
-						best_is[0] = i;
-						best_value = ucb1_value;
-					}
+			double best_value = -INF;
+			for (int i = 0; i < this->child_nodeses.size(); i++) {
+				const auto& childe_nodes = this->child_nodeses[i];
+				double w = 0;
+				double n = 0;
+				for (int j = 0; j < childe_nodes.size(); j++) {
+					const auto& child_node = childe_nodes[j];
+					w += child_node.w_;
+					n += child_node.n_;
 				}
-				best_value = -INF;
-				for (int j = 0; j < this->child_nodeses[0].size(); j++) {
-					double w = 0;
-					double n = 0;
-					for (int i = 0; i < this->child_nodeses.size(); i++) {
-						const auto& child_node = child_nodeses[i][j];
-						w += child_node.w_;
-						n += child_node.n_;
-					}
-					w = 1. - w;
-					double wr = w / n;
-					double bias = std::sqrt(2. * std::log(t) / n);
+				double wr = w / n;
+				double bias = std::sqrt(2. * std::log(t) / n);
 
-					double ucb1_value = w / n + (double)C * std::sqrt(2. * std::log(t) / n);
-					if (ucb1_value > best_value) {
-						best_is[1] = j;
-						best_value = ucb1_value;
-					}
+				double ucb1_value = w / n + (double)C * std::sqrt(2. * std::log(t) / n);
+				if (ucb1_value > best_value) {
+					best_is[0] = i;
+					best_value = ucb1_value;
 				}
 			}
+			best_value = -INF;
+			for (int j = 0; j < this->child_nodeses[0].size(); j++) {
+				double w = 0;
+				double n = 0;
+				for (int i = 0; i < this->child_nodeses.size(); i++) {
+					const auto& child_node = child_nodeses[i][j];
+					w += child_node.w_;
+					n += child_node.n_;
+				}
+				w = 1. - w;
+				double wr = w / n;
+				double bias = std::sqrt(2. * std::log(t) / n);
+
+				double ucb1_value = w / n + (double)C * std::sqrt(2. * std::log(t) / n);
+				if (ucb1_value > best_value) {
+					best_is[1] = j;
+					best_value = ucb1_value;
+				}
+			}
+
 			return this->child_nodeses[best_is[0]][best_is[1]];
 		}
 
